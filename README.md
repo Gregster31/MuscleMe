@@ -1,2 +1,2 @@
-# StudyBuddy
-AI-driven Personalized Learning Platform
+# Muscle trainer
+AI-driven Personalized Exercising Learning Platform
