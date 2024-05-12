@@ -1,5 +1,4 @@
-// Get the image element
-const API_KEY = 'sk-proj-X79P455EYtBsoH6cwVDsT3BlbkFJVNpwHVDN8S93kPP7bS8p'; //to change
+const API_KEY = 'YOUR API KEY'; //ADD API KEY 
 const bodyImage = document.getElementById('body-image');
 const weightInput = document.getElementById('weight');
 const heightInput = document.getElementById('height');
@@ -23,7 +22,6 @@ bodyImage?.addEventListener('click', function(event) {
 
     for (const regionName in regions) {
         if (isWithinRegion(x, y, regions[regionName])) {
-            // createOverlay(regions[regionName]);
             const specifications = getUserSpecifications();
             callChatGPT(regionName, specifications);
             break; 
@@ -33,18 +31,6 @@ bodyImage?.addEventListener('click', function(event) {
 
 function isWithinRegion(x, y, region) {
     return x >= region.x1 && x <= region.x2 && y >= region.y1 && y <= region.y2;
-}
-
-function createOverlay(region) {
-    const overlay = document.createElement('div');
-    overlay.classList.add('overlay');
-    overlay.style.position = 'absolute';
-    overlay.style.top = region.y1 + 'px';
-    overlay.style.left = region.x1 + 'px';
-    overlay.style.width = (region.x2 - region.x1) + 'px';
-    overlay.style.height = (region.y2 - region.y1) + 'px';
-    overlay.style.backgroundColor = 'rgba(255, 0, 0, 0.3)'; 
-    bodyImage?.parentElement?.appendChild(overlay);
 }
 
 async function callChatGPT(regionName, specifications) {

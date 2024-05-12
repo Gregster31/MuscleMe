@@ -70,16 +70,16 @@ body {
 
 .grid-container {
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr 1fr; /* 4 equal columns */
+    grid-template-columns: 1.5fr 1fr 1fr 1fr; 
   }
   
   .specifications {
-    grid-column: 1 / span 1; /* Span 1 column */
+    grid-column: 1 / span 1; 
     margin-left: 50px;
     display: flex;
-    justify-content: center; /* Horizontally center the specifications-box */
-    align-items: center; /* Vertically center the specifications-box */
-    height: 100vh; /* Optional: adjust height as needed */
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
 }
 .specifications-box {
     background-color: white;
@@ -88,16 +88,16 @@ body {
 }
   
   .image {
-    grid-column: span 3; /* Span 3 columns */
+    grid-column: span 3; 
     display: flex;
-    justify-content: center; /* Center the content horizontally */
-    align-items: center; /* Center the content vertically */
+    justify-content: center; 
+    align-items: center; 
   }
 
   .gender-toggle {
     display: flex;
     align-items: center;
-    justify-content: center; /* Center horizontally */
+    justify-content: center;
 }
 
 .gender-toggle input[type="radio"] {
@@ -114,8 +114,8 @@ body {
 }
 
 .gender-toggle input[type="radio"]:checked + label {
-    background-color: lightblue; /* Change background color for checked state */
-    color: white; /* Change text color for checked state */
+    background-color: lightblue; 
+    color: white;
 }
 
 .gender-toggle input[type="radio"]:nth-of-type(1) + label {
@@ -129,7 +129,7 @@ body {
 }
 
 .gender-toggle input[type="radio"]#female:checked + label {
-    background-color: pink; /* Change background color to pink when female is chosen */
+    background-color: pink; 
 }
 
 .user-input {
