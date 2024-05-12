@@ -1,7 +1,6 @@
 // Get the image element
-const API_KEY = 'KEY TO CHANGE'; //to change
+const API_KEY = 'sk-proj-jPw2I95qyljlhnnf0EWAT3BlbkFJvxGkr7v6HCg9wHEtGbyS'; //to change
 const bodyImage = document.getElementById('body-image');
-const responseTextarea = document.getElementById('response');
 const weightInput = document.getElementById('weight');
 const heightInput = document.getElementById('height');
 const genderInputs = document.querySelectorAll('input[name="gender"]');
@@ -56,11 +55,11 @@ function createOverlay(region) {
 }
 
 // Function to call ChatGPT API
+// Function to call ChatGPT API
 async function callChatGPT(regionName, specifications) {
-    //clear the form
-    responseTextarea.value = ""
-
     try {
+        showLoadingSpinner();
+
         const response = await fetch('https://api.openai.com/v1/chat/completions', {
             method: 'POST',
             headers: {
@@ -69,8 +68,13 @@ async function callChatGPT(regionName, specifications) {
             },
             body: JSON.stringify({
                 model: 'gpt-4',
-                messages: [{ role: 'user', content: `Create a 1-day ADAPTED training plan for ${regionName} specific workout for a ${specifications.gender} 
-                of ${specifications.weight} kg and ${specifications.height} cm. Do not include 1-day training plan title and DO NOT HAVE A MEDICAL remark at the end OR ANY OTHER KIND OF REMARK.`}],
+                messages: [{ role: 'user', content: `Do only has my demand states, do not add anything else.
+                Create a 1-day ADAPTED training plan for ${regionName} specific workout for a ${specifications.gender} of ${specifications.weight} kg and ${specifications.height} cm.
+                The exercise need to be only doable with the following equipement: ${specifications.equipment.join(', ')}. 
+                First I want a warm-up with 2 exercises with short descriptions for each exercise. 
+                Next I want a work-out with 5 exercises and a small descriptions for each.
+                Finally, I want a cool-down with 2 exercises and a small descriptions for each.
+                Do not include 1-day training plan title and DO NOT HAVE A MEDICAL remark at the end OR ANY OTHER KIND OF REMARK.`}],
                 temperature: 1.0,
                 top_p: 0.7,
                 n: 1,
@@ -88,16 +92,39 @@ async function callChatGPT(regionName, specifications) {
         console.log(data); // Log the response data for debugging
 
         if (data && data.choices && data.choices.length > 0 && data.choices[0].message && data.choices[0].message.content) {
-            responseTextarea.value = data.choices[0].message.content;
+            // Encode the response to make it URL-safe
+            const encodedResponse = encodeURIComponent(data.choices[0].message.content);
+            // Navigate to the response view page with the response as a query parameter
+            window.location.href = `response.html?response=${encodedResponse}`;
         } else {
-            responseTextarea.value = 'Error: Unexpected response format';
+            alert('Error: Unexpected response format');
         }
     } catch (error) {
         console.error('Error:', error);
-        responseTextarea.value = 'Error: Unable to process your request.';
+        alert('Error: Unable to process your request.');
+    } finally {
+        // Hide loading spinner after request is completed
+        hideLoadingSpinner();
     }
 }
 
+// Function to show loading spinner
+function showLoadingSpinner() {
+    const loadingSpinner = document.createElement('div');
+    loadingSpinner.classList.add('loading-spinner');
+    loadingSpinner.textContent = 'Loading...';
+    loadingSpinner.style.fontSize = '34px'; // Adjust the font size as needed
+    document.body.appendChild(loadingSpinner);
+}
+
+
+// Function to hide loading spinner
+function hideLoadingSpinner() {
+    const loadingSpinner = document.querySelector('.loading-spinner');
+    if (loadingSpinner) {
+        loadingSpinner.remove();
+    }
+}
 
 // Function to get selected gender
 function getGender() {
@@ -109,12 +136,24 @@ function getGender() {
     });
     return gender;
 }
+// Function to get selected equipment
+function getEquipment() {
+    const equipmentInputs = document.querySelectorAll('input[name="equipment"]');
+    let equipment = [];
+    equipmentInputs.forEach(input => {
+        if (input.checked) {
+            equipment.push(input.value);
+        }
+    });
+    return equipment;
+}
 
-// Function to get user specifications
+// Modify the getUserSpecifications function to include equipment
 function getUserSpecifications() {
     const weight = weightInput?.value;
     const height = heightInput?.value;
     const gender = getGender();
-    return { weight, height, gender };
+    const equipment = getEquipment();
+    return { weight, height, gender, equipment };
 }
 
