@@ -1,7 +1,11 @@
 // Get the image element
-const API_KEY = 'sk-proj-cGRLvZHWMfDi6QqxwveCT3BlbkFJGsasRo8FrGwbwjp8MV7Z'; //to change
+const API_KEY = 'CHANGE THE KEY'; //to change
 const bodyImage = document.getElementById('body-image');
 const responseTextarea = document.getElementById('response');
+const weightInput = document.getElementById('weight');
+const heightInput = document.getElementById('height');
+const genderInputs = document.querySelectorAll('input[name="gender"]');
+
 
 // Attach click event listener to the image
 bodyImage?.addEventListener('click', function(event) {
@@ -26,7 +30,8 @@ bodyImage?.addEventListener('click', function(event) {
     for (const regionName in regions) {
         if (isWithinRegion(x, y, regions[regionName])) {
             // createOverlay(regions[regionName]);
-            callChatGPT(regionName);
+            const specifications = getUserSpecifications();
+            callChatGPT(regionName, specifications);
             break; // Exit loop after the first matching region
         }
     }    
@@ -51,7 +56,7 @@ function createOverlay(region) {
 }
 
 // Function to call ChatGPT API
-async function callChatGPT(regionName) {
+async function callChatGPT(regionName, specifications) {
     //clear the form
     responseTextarea.value = ""
 
@@ -64,7 +69,8 @@ async function callChatGPT(regionName) {
             },
             body: JSON.stringify({
                 model: 'gpt-4',
-                messages: [{ role: 'user', content: `Create a training plan for this body part: ${regionName}`}],
+                messages: [{ role: 'user', content: `Create a 1-day ADAPTED training plan for ${regionName} specific workout for a ${specifications.gender} 
+                of ${specifications.weight} kg and ${specifications.height} cm. Do not include 1-day training plan title and a remark at the end.`}],
                 temperature: 1.0,
                 top_p: 0.7,
                 n: 1,
@@ -91,3 +97,24 @@ async function callChatGPT(regionName) {
         responseTextarea.value = 'Error: Unable to process your request.';
     }
 }
+
+
+// Function to get selected gender
+function getGender() {
+    let gender = '';
+    genderInputs.forEach(input => {
+        if (input.checked) {
+            gender = input.value;
+        }
+    });
+    return gender;
+}
+
+// Function to get user specifications
+function getUserSpecifications() {
+    const weight = weightInput?.value;
+    const height = heightInput?.value;
+    const gender = getGender();
+    return { weight, height, gender };
+}
+
