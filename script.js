@@ -1,5 +1,5 @@
 // Get the image element
-const API_KEY = 'sk-proj-jPw2I95qyljlhnnf0EWAT3BlbkFJvxGkr7v6HCg9wHEtGbyS'; //to change
+const API_KEY = 'CHANGE KEY'; //to change
 const bodyImage = document.getElementById('body-image');
 const weightInput = document.getElementById('weight');
 const heightInput = document.getElementById('height');
