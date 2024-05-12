@@ -1,18 +1,15 @@
 // Get the image element
-const API_KEY = 'KEY CHANGE'; //to change
+const API_KEY = 'sk-proj-X79P455EYtBsoH6cwVDsT3BlbkFJVNpwHVDN8S93kPP7bS8p'; //to change
 const bodyImage = document.getElementById('body-image');
 const weightInput = document.getElementById('weight');
 const heightInput = document.getElementById('height');
 const genderInputs = document.querySelectorAll('input[name="gender"]');
 
 
-// Attach click event listener to the image
 bodyImage?.addEventListener('click', function(event) {
-    // Get the coordinates of the click relative to the image
     const x = event.offsetX;
     const y = event.offsetY;
     
-    // Define the coordinates for the regions where clicks should trigger overlays
     const regions = {
         upperBody: { x1: 115, y1: 145, x2: 310, y2: 320 },
         quads: { x1: 115, y1: 321, x2: 310, y2: 500 },
@@ -21,27 +18,23 @@ bodyImage?.addEventListener('click', function(event) {
         arms2: { x1: 310, y1: 145, x2: 800, y2: 321 }
     };
 
-    // Remove any existing overlays
     const existingOverlays = document.querySelectorAll('.overlay');
     existingOverlays.forEach(overlay => overlay.remove());
 
-    // Create and position overlay elements for clicked regions
     for (const regionName in regions) {
         if (isWithinRegion(x, y, regions[regionName])) {
             // createOverlay(regions[regionName]);
             const specifications = getUserSpecifications();
             callChatGPT(regionName, specifications);
-            break; // Exit loop after the first matching region
+            break; 
         }
     }    
 });
 
-// Function to check if coordinates are within a region
 function isWithinRegion(x, y, region) {
     return x >= region.x1 && x <= region.x2 && y >= region.y1 && y <= region.y2;
 }
 
-// Function to create and position overlay elements
 function createOverlay(region) {
     const overlay = document.createElement('div');
     overlay.classList.add('overlay');
@@ -50,12 +43,10 @@ function createOverlay(region) {
     overlay.style.left = region.x1 + 'px';
     overlay.style.width = (region.x2 - region.x1) + 'px';
     overlay.style.height = (region.y2 - region.y1) + 'px';
-    overlay.style.backgroundColor = 'rgba(255, 0, 0, 0.3)'; // Light red with opacity
+    overlay.style.backgroundColor = 'rgba(255, 0, 0, 0.3)'; 
     bodyImage?.parentElement?.appendChild(overlay);
 }
 
-// Function to call ChatGPT API
-// Function to call ChatGPT API
 async function callChatGPT(regionName, specifications) {
     try {
         showLoadingSpinner();
@@ -89,12 +80,10 @@ async function callChatGPT(regionName, specifications) {
         }
 
         const data = await response.json();
-        console.log(data); // Log the response data for debugging
+        console.log(data); 
 
         if (data && data.choices && data.choices.length > 0 && data.choices[0].message && data.choices[0].message.content) {
-            // Encode the response to make it URL-safe
             const encodedResponse = encodeURIComponent(data.choices[0].message.content);
-            // Navigate to the response view page with the response as a query parameter
             window.location.href = `response.html?response=${encodedResponse}`;
         } else {
             alert('Error: Unexpected response format');
@@ -103,22 +92,19 @@ async function callChatGPT(regionName, specifications) {
         console.error('Error:', error);
         alert('Error: Unable to process your request.');
     } finally {
-        // Hide loading spinner after request is completed
         hideLoadingSpinner();
     }
 }
 
-// Function to show loading spinner
 function showLoadingSpinner() {
     const loadingSpinner = document.createElement('div');
     loadingSpinner.classList.add('loading-spinner');
     loadingSpinner.textContent = 'Loading...';
-    loadingSpinner.style.fontSize = '34px'; // Adjust the font size as needed
+    loadingSpinner.style.fontSize = '34px'; 
     document.body.appendChild(loadingSpinner);
 }
 
 
-// Function to hide loading spinner
 function hideLoadingSpinner() {
     const loadingSpinner = document.querySelector('.loading-spinner');
     if (loadingSpinner) {
@@ -126,7 +112,6 @@ function hideLoadingSpinner() {
     }
 }
 
-// Function to get selected gender
 function getGender() {
     let gender = '';
     genderInputs.forEach(input => {
@@ -136,7 +121,6 @@ function getGender() {
     });
     return gender;
 }
-// Function to get selected equipment
 function getEquipment() {
     const equipmentInputs = document.querySelectorAll('input[name="equipment"]');
     let equipment = [];
@@ -148,7 +132,6 @@ function getEquipment() {
     return equipment;
 }
 
-// Modify the getUserSpecifications function to include equipment
 function getUserSpecifications() {
     const weight = weightInput?.value;
     const height = heightInput?.value;
