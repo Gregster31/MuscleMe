@@ -1,5 +1,5 @@
 // Get the image element
-const API_KEY = 'CHANGE THE KEY'; //to change
+const API_KEY = 'KEY TO CHANGE'; //to change
 const bodyImage = document.getElementById('body-image');
 const responseTextarea = document.getElementById('response');
 const weightInput = document.getElementById('weight');
@@ -70,7 +70,7 @@ async function callChatGPT(regionName, specifications) {
             body: JSON.stringify({
                 model: 'gpt-4',
                 messages: [{ role: 'user', content: `Create a 1-day ADAPTED training plan for ${regionName} specific workout for a ${specifications.gender} 
-                of ${specifications.weight} kg and ${specifications.height} cm. Do not include 1-day training plan title and a remark at the end.`}],
+                of ${specifications.weight} kg and ${specifications.height} cm. Do not include 1-day training plan title and DO NOT HAVE A MEDICAL remark at the end OR ANY OTHER KIND OF REMARK.`}],
                 temperature: 1.0,
                 top_p: 0.7,
                 n: 1,
