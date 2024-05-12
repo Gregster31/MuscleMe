@@ -2,7 +2,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: white;
+    background-color: #e6ecee;
 }
 
 .title {
@@ -11,6 +11,7 @@ body {
     background-color: #f0f0f0;
     border: 5px solid blue;
     margin: 10px;
+    border-radius: 20px;
 }
 
 .title h1 {
@@ -65,4 +66,87 @@ body {
     border: 2px solid black;
     padding: 10px;
     
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr; /* 4 equal columns */
+  }
+  
+  .specifications {
+    grid-column: 1 / span 1; /* Span 1 column */
+    margin-left: 50px;
+    display: flex;
+    justify-content: center; /* Horizontally center the specifications-box */
+    align-items: center; /* Vertically center the specifications-box */
+    height: 100vh; /* Optional: adjust height as needed */
+}
+.specifications-box {
+    background-color: white;
+    border-radius: 20px;
+    padding: 40px;
+}
+  
+  .image {
+    grid-column: span 3; /* Span 3 columns */
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+  }
+
+  .gender-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center horizontally */
+}
+
+.gender-toggle input[type="radio"] {
+    display: none;
+}
+
+.gender-toggle label {
+    cursor: pointer;
+    padding: 10px 20px;
+    background-color: #ccc;
+    color: #555;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.gender-toggle input[type="radio"]:checked + label {
+    background-color: lightblue; /* Change background color for checked state */
+    color: white; /* Change text color for checked state */
+}
+
+.gender-toggle input[type="radio"]:nth-of-type(1) + label {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.gender-toggle input[type="radio"]:nth-of-type(2) + label {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.gender-toggle input[type="radio"]#female:checked + label {
+    background-color: pink; /* Change background color to pink when female is chosen */
+}
+
+.user-input {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.user-input label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.user-input input[type="number"] {
+    width: 150px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
 }

@@ -8,38 +8,34 @@
 </head>
 <body>
     <div class="title">
-        <h1>Muscle Trainer</h1>
+        <h1>Elite Muscle Trainer</h1>
     </div>
-    <div class="bottom-content">
-        <div class="left-content">
-            <img id="body-image" src="../../../img/body-image.png" alt="Image">
-        </div>
-        <div class="right-content">
-            <div class="info-box">
-                <div class="right-title">
-                    <h2>Other Infos</h2>
+    <div class="grid-container">
+        <div class="specifications">
+            <div class="specifications-box"> 
+                <div class="title">
+                    <h3>Specifications</h3>
                 </div>
-                <div class="checkboxes">
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="checkbox1">
-                        <label for="checkbox1">Checkbox 1</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="checkbox2">
-                        <label for="checkbox2">Checkbox 2</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="checkbox3">
-                        <label for="checkbox3">Checkbox 3</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="checkbox4">
-                        <label for="checkbox4">Checkbox 4</label>
-                    </div>
+                <div class="gender-toggle">
+                    <input type="radio" id="male" name="gender" value="male" checked>
+                    <label for="male">Male</label>
+                    <input type="radio" id="female" name="gender" value="female">
+                    <label for="female">Female</label>
+                </div>
+                <div class="user-input">
+                    <label for="weight">Weight (kg):</label>
+                    <input type="number" id="weight" name="weight">
+                    <label for="height">Height (cm):</label>
+                    <input type="number" id="height" name="height">
                 </div>
             </div>
         </div>
-    </div>
+        <div class="image">
+            <img id="body-image" src="../../../img/body-image.png" alt="Image">
+        </div>
+        <div class="image"></div>
+        <div class="image"></div>
+      </div>      
     <div>
         <h2>Response:</h2>
         <textarea id="response" rows="20" style="width: 80%;" readonly></textarea>

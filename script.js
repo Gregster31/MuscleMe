@@ -1,5 +1,5 @@
 // Get the image element
-const API_KEY = 'API key'; //to change
+const API_KEY = 'sk-proj-cGRLvZHWMfDi6QqxwveCT3BlbkFJGsasRo8FrGwbwjp8MV7Z'; //to change
 const bodyImage = document.getElementById('body-image');
 const responseTextarea = document.getElementById('response');
 
