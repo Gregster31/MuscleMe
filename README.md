@@ -10,4 +10,5 @@ AI-powered Personalized Training Plan Generator for All Levels
 
 https://github.com/Gregster31/MuscleTrainer/assets/123277418/2f8d531f-2d4a-4d1b-b800-906a93b623dd
 
+After choosing the muscle group you want to exercise, it redirects you to another page with your workout :
 ![MuscleMeRESUME-DEMO](https://github.com/Gregster31/MuscleTrainer/assets/123277418/440265f5-2c96-4e42-ac77-9372320eec10)
